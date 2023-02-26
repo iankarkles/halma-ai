@@ -11,10 +11,11 @@ from menu import Menu
 
 class Halma():
 
-    Menu()
-
 
     def __init__(self, b_size=8, t_limit=60, c_player=Tile.P_RED):
+        self.menu = Menu()
+        self.menu.mainloop()
+        #self.menu.open_halma()
 
 
 
