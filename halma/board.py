@@ -10,8 +10,8 @@ class Board(tk.Tk):
         tk.Tk.__init__(self, *args, **kwargs)
 
         # Save metadata
-        self.title("Halma | Deep Red")
-        self.wm_iconbitmap("deep_red.ico")
+        self.title("Halma Project -  IART 2023/MECD - FEUP")
+        self.wm_iconbitmap("feup.ico")
         self.resizable(False, False)
         self.configure(bg="#fff")
 

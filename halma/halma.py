@@ -4,13 +4,19 @@ import time
 import math
 
 # Custom module imports
-from .board import Board
-from .tile import Tile
+from board import Board
+from tile import Tile
+from menu import Menu
 
 
 class Halma():
 
+    Menu()
+
+
     def __init__(self, b_size=8, t_limit=60, c_player=Tile.P_RED):
+
+
 
         # Create initial board
         board = [[None] * b_size for _ in range(b_size)]
