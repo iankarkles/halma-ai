@@ -1,4 +1,4 @@
-# <img src="deep_red.ico" width="24" height="24" /> Halma AI
+# <img src="feup.ico" width="24" height="24" /> Halma AI - Project for FEUP MECD - IART Table
 
 An AI that uses an adversarial minimax search with alpha-beta purning to
 determine the best subsequent move. The program also supports player vs.
@@ -37,5 +37,5 @@ dynamic depth.
 
 ## Team Info
 
-* Peter Huettl - [ph289@nau.edu](ph289@nau.edu)
-* Garrison Smith - [gts35@nau.edu](gts35@nau.edu)
+* Ian Karkles - up202200596@edu.fe.up.pt
+* Diogo Cruz - ####
