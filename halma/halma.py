@@ -13,9 +13,10 @@ class Halma():
 
 
     def __init__(self, b_size=8, t_limit=60, c_player=Tile.P_RED):
-        self.menu = Menu()
-        self.menu.mainloop()
-        #self.menu.open_halma()
+        #self.menu = Menu()
+        #self.menu.mainloop()
+        #print(self.menu.open_halma())
+        
 
 
 
@@ -44,7 +45,6 @@ class Halma():
         self.valid_moves = []
         self.computing = False
         self.total_plies = 0
-
         self.ply_depth = 3
         self.ab_enabled = True
 
