@@ -27,7 +27,9 @@ class Halma():
         elif dificulty == "multi":
             c_player = None
         
-
+        # TODO: Create an AI vs AI mode
+        # TODO: Create a more advanced AI through different evaluation functions and successor functions
+        
 
 
         # Create initial board
