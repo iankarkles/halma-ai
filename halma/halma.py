@@ -13,9 +13,19 @@ class Halma():
 
 
     def __init__(self, b_size=8, t_limit=60, c_player=Tile.P_RED):
-        #self.menu = Menu()
-        #self.menu.mainloop()
-        #print(self.menu.open_halma())
+        self.menu = Menu()
+        self.menu.mainloop()
+
+        dificulty = self.menu.difficulty
+
+        if dificulty == "easy":
+            self.ply_depth = 1
+        elif dificulty == "medium":
+            self.ply_depth = 3
+        elif dificulty == "hard":
+            self.ply_depth = 5
+        elif dificulty == "multi":
+            c_player = None
         
 
 

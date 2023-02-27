@@ -20,8 +20,9 @@ class Menu(tk.Tk):
         self.button_font = "Helvetica 16"
         self.button_bg = "#fff"
         self.button_fg = "#333"
-        self.button_width = 20
+        self.button_width = 25
         self.button_height = 2
+    
 
         self.single_player_button = tk.Button(
             self,
@@ -31,7 +32,7 @@ class Menu(tk.Tk):
             fg=self.button_fg,
             width=self.button_width,
             height=self.button_height,
-            command=self.open_halma(difficulty="easy"),
+            command=lambda: self.open_halma(difficulty="easy"),
         )
         self.single_player_button.grid(row=0, column=0)
 
@@ -43,33 +44,21 @@ class Menu(tk.Tk):
             fg=self.button_fg,
             width=self.button_width,
             height=self.button_height,
-            command=self.open_halma(difficulty="easy"),
+            command=lambda: self.open_halma(difficulty="medium"),
         )
-        self.single_player_button.grid(row=0, column=0)
+        self.single_player_button.grid(row=1, column=0)
 
         self.single_player_button = tk.Button(
             self,
-            text="Human vs. AI Player",
+            text="Human vs. AI Player - Hard",
             font=self.button_font,
             bg=self.button_bg,
             fg=self.button_fg,
             width=self.button_width,
             height=self.button_height,
-            command=self.show_difficulty_screen,
+                command=lambda: self.open_halma(difficulty="hard"),
         )
-        self.single_player_button.grid(row=0, column=0)
-
-        self.single_player_button = tk.Button(
-            self,
-            text="Human vs. AI Player",
-            font=self.button_font,
-            bg=self.button_bg,
-            fg=self.button_fg,
-            width=self.button_width,
-            height=self.button_height,
-            command=self.show_difficulty_screen,
-        )
-        self.single_player_button.grid(row=0, column=0)
+        self.single_player_button.grid(row=2, column=0)
 
         self.multi_player_button = tk.Button(
             self,
@@ -81,7 +70,7 @@ class Menu(tk.Tk):
             height=self.button_height,
             command=lambda: self.open_halma(difficulty="multi"),
         )
-        self.multi_player_button.grid(row=1, column=0)
+        self.multi_player_button.grid(row=3, column=0)
 
         self.exit_button = tk.Button(
             self,
@@ -93,10 +82,11 @@ class Menu(tk.Tk):
             height=self.button_height,
             command=self.quit,
         )
-        self.exit_button.grid(row=2, column=0)
+        self.exit_button.grid(row=4, column=0)
 
-        def open_halma(self, difficulty):
-        # Store the selected difficulty and close the window
-            self.selected_difficulty = difficulty
-            self.destroy()
-            return difficulty
+    def open_halma(self, difficulty):
+    # Store the selected difficulty and close the window
+        self.difficulty = difficulty
+        #self.destroy()
+        self.quit()
+        return difficulty
