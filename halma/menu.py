@@ -72,6 +72,18 @@ class Menu(tk.Tk):
         )
         self.multi_player_button.grid(row=3, column=0)
 
+        self.ai_vs_ai_button = tk.Button(
+            self,
+            text="AI vs. AI",
+            font=self.button_font,
+            bg=self.button_bg,
+            fg=self.button_fg,
+            width=self.button_width,
+            height=self.button_height,
+            command=lambda: self.open_halma(difficulty="ai_vs_ai"),
+        )
+        self.ai_vs_ai_button.grid(row=4, column=0)
+
         self.exit_button = tk.Button(
             self,
             text="Exit",
@@ -82,7 +94,7 @@ class Menu(tk.Tk):
             height=self.button_height,
             command=self.quit,
         )
-        self.exit_button.grid(row=4, column=0)
+        self.exit_button.grid(row=5, column=0)
 
     def open_halma(self, difficulty):
     # Store the selected difficulty and close the window
