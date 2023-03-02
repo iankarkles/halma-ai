@@ -92,7 +92,7 @@ class Halma():
         
 
         if self.ai_player == True:
-                    self.execute_computer_move_ai_vs_ai()
+                    self.play()
         elif self.c_player == self.current_player:
             self.execute_computer_move()
         
@@ -219,9 +219,23 @@ class Halma():
 
         return best_val, best_move, prunes, boards
     
+    #def play(self):
+    #    counter = 0
+    #    while not self.is_game_over == True:
+    #        if counter % 2 == 0:
+    #            self.execute_computer_move_ai_vs_ai()
+    #        else:
+    #            self.execute_computer_move()
+    #        counter += 1
     def play(self):
+        counter = 0
         while not self.is_game_over == True:
-            self.execute_computer_move_ai_vs_ai()
+            if counter % 2 == 0:
+                self.execute_computer_move_ai_vs_ai()
+            else:
+                self.execute_computer_move()
+            counter += 1
+            print(counter)
     
 
     def execute_computer_move(self):
@@ -282,61 +296,74 @@ class Halma():
     
     def execute_computer_move_ai_vs_ai(self):
     # determine the current player
-        if self.current_player == Tile.P_GREEN:
-            self.c_player = Tile.P_GREEN
+        #counter = 0
+        #if counter % 2 == 0:
+        #    self.current_player = Tile.P_GREEN
+        #else:
+        #    self.current_player = Tile.P_RED
+        #counter += 1
+        if self.is_game_over == False:
+            if self.current_player == Tile.P_GREEN:
+                self.c_player = Tile.P_GREEN
+            else:
+                self.c_player = Tile.P_RED
+        # Print out search information
+            current_turn = (self.total_plies // 2) + 1
+            print("Turn", current_turn, "Computation")
+            print("=================" + ("=" * len(str(current_turn))))
+            print("Executing search ...", end=" ")
+            sys.stdout.flush()
+
+            # self.board_view.set_status("Computing next move...")
+            self.computing = True
+            self.board_view.update()
+            max_time = time.time() + self.t_limit
+
+            # Execute minimax search
+            start = time.time()
+            _, move, prunes, boards = self.minimax(self.ply_depth,
+                self.c_player, max_time)
+            end = time.time()
+
+            # Print search result stats
+            print("complete")
+            print("Time to compute:", round(end - start, 4))
+            print("Total boards generated:", boards)
+            print("Total prune events:", prunes)
+
+            # Move the resulting piece
+            try:
+                self.outline_tiles(None)  # Reset outlines
+                move_from = self.board[move[0][0]][move[0][1]]
+                move_to = self.board[move[1][0]][move[1][1]]
+                self.move_piece(move_from, move_to)
+            except:
+                pass
+
+            self.board_view.draw_tiles(board=self.board)  # Refresh the board
+
+            winner = self.find_winner()
+            if winner:
+                self.board_view.set_status("The " + ("green"
+                    if winner == Tile.P_GREEN else "red") + " player has won!")
+                self.board_view.set_status_color("#212121")
+                self.current_player = None
+                self.current_player = None
+
+                print()
+                print("Final Stats")
+                print("===========")
+                print("Final winner:", "green"
+                    if winner == Tile.P_GREEN else "red")
+                print("Total # of plies:", self.total_plies)
+                self.is_game_over = True
+            else:
+                pass
+                # recursively call play() to continue the game
+                #self.current_player = self.c_player
+                #self.play()
         else:
-            self.c_player = Tile.P_RED
-    # Print out search information
-        current_turn = (self.total_plies // 2) + 1
-        print("Turn", current_turn, "Computation")
-        print("=================" + ("=" * len(str(current_turn))))
-        print("Executing search ...", end=" ")
-        sys.stdout.flush()
-
-        # self.board_view.set_status("Computing next move...")
-        self.computing = True
-        self.board_view.update()
-        max_time = time.time() + self.t_limit
-
-        # Execute minimax search
-        start = time.time()
-        _, move, prunes, boards = self.minimax(self.ply_depth,
-            self.c_player, max_time)
-        end = time.time()
-
-        # Print search result stats
-        print("complete")
-        print("Time to compute:", round(end - start, 4))
-        print("Total boards generated:", boards)
-        print("Total prune events:", prunes)
-
-        # Move the resulting piece
-        self.outline_tiles(None)  # Reset outlines
-        move_from = self.board[move[0][0]][move[0][1]]
-        move_to = self.board[move[1][0]][move[1][1]]
-        self.move_piece(move_from, move_to)
-
-        self.board_view.draw_tiles(board=self.board)  # Refresh the board
-
-        winner = self.find_winner()
-        if winner:
-            self.board_view.set_status("The " + ("green"
-                if winner == Tile.P_GREEN else "red") + " player has won!")
-            self.board_view.set_status_color("#212121")
-            self.current_player = None
-            self.current_player = None
-
-            print()
-            print("Final Stats")
-            print("===========")
-            print("Final winner:", "green"
-                if winner == Tile.P_GREEN else "red")
-            print("Total # of plies:", self.total_plies)
-            self.is_game_over = True
-        else:
-            # recursively call play() to continue the game
-            self.current_player = self.c_player
-            self.play()
+            print("Game is over")
 
 
 
