@@ -44,9 +44,10 @@ class Tile():
 
         # Find appropriate tile color
         tile_colors = [
-            ("#8C6C50", "#DBBFA0"),  # Normal tiles
-            ("#71b651", "#a6ce9d"),  # Red goal tiles
-            ("#ba6262", "#ce9d9d")   # Green goal tiles
+            ("#262626", "#F0F0F0"),  # Normal tiles
+            ("#232db0", "#4850b8"),  # Red goal tiles - to be replaced by blue ("#232db0", "##64eb0")
+            ("#b0b023", "#ede38a")   # Green goal tiles - to be replaced by yellow ("#b0b023", "#ebe64e")
+
         ]
         tile_color = tile_colors[self.tile][(self.loc[0] + self.loc[1]) % 2]
 

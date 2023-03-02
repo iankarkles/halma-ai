@@ -2,6 +2,7 @@
 import sys
 import time
 import math
+import random
 
 # Custom module imports
 from board import Board
@@ -87,8 +88,8 @@ class Halma():
         self.g_goals = [t for row in board
                         for t in row if t.tile == Tile.T_GREEN]
 
-        self.board_view.set_status_color("#E50000" if
-            self.current_player == Tile.P_RED else "#007F00")
+        self.board_view.set_status_color("#757575" if
+            self.current_player == Tile.P_RED else "#757575")
         
 
         if self.ai_player == True:
@@ -153,8 +154,8 @@ class Halma():
             # If there is a winner to the game
             winner = self.find_winner()
             if winner:
-                self.board_view.set_status("The " + ("green"
-                    if winner == Tile.P_GREEN else "red") + " player has won!")
+                self.board_view.set_status("The " + ("blue"
+                    if winner == Tile.P_GREEN else "yellow") + " player has won!")
                 self.current_player = None
 
             elif self.c_player is not None:
@@ -274,8 +275,8 @@ class Halma():
 
         winner = self.find_winner()
         if winner:
-            self.board_view.set_status("The " + ("green"
-                if winner == Tile.P_GREEN else "red") + " player has won!")
+            self.board_view.set_status("The " + ("blue"
+                if winner == Tile.P_GREEN else "yellow") + " player has won!")
             self.board_view.set_status_color("#212121")
             self.current_player = None
             self.current_player = None
@@ -283,8 +284,8 @@ class Halma():
             print()
             print("Final Stats")
             print("===========")
-            print("Final winner:", "green"
-                if winner == Tile.P_GREEN else "red")
+            print("Final winner:", "blue"
+                if winner == Tile.P_GREEN else "yellow")
             print("Total # of plies:", self.total_plies)
 
         else:  # Toggle the current player
@@ -313,6 +314,8 @@ class Halma():
             print("=================" + ("=" * len(str(current_turn))))
             print("Executing search ...", end=" ")
             sys.stdout.flush()
+
+            self.ply_depth = random.randint(1, 3)
 
             # self.board_view.set_status("Computing next move...")
             self.computing = True
@@ -344,8 +347,8 @@ class Halma():
 
             winner = self.find_winner()
             if winner:
-                self.board_view.set_status("The " + ("green"
-                    if winner == Tile.P_GREEN else "red") + " player has won!")
+                self.board_view.set_status("The " + ("blue"
+                    if winner == Tile.P_GREEN else "yellow") + " player has won!")
                 self.board_view.set_status_color("#212121")
                 self.current_player = None
                 self.current_player = None
@@ -353,8 +356,8 @@ class Halma():
                 print()
                 print("Final Stats")
                 print("===========")
-                print("Final winner:", "green"
-                    if winner == Tile.P_GREEN else "red")
+                print("Final winner:", "blue"
+                    if winner == Tile.P_GREEN else "yellow")
                 print("Total # of plies:", self.total_plies)
                 self.is_game_over = True
             else:
@@ -469,8 +472,8 @@ class Halma():
         self.board_view.set_status_color("#007F00" if
             self.current_player == Tile.P_RED else "#E50000")
         self.board_view.set_status("Piece moved from `" + str(from_tile) +
-            "` to `" + str(to_tile) + "`, " + ("green's" if
-            self.current_player == Tile.P_RED else "red's") + " turn...")
+            "` to `" + str(to_tile) + "`, " + ("blue's" if
+            self.current_player == Tile.P_RED else "yellow's") + " turn...")
 
     def find_winner(self):
 

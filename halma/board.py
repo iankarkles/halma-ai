@@ -128,10 +128,10 @@ class Board(tk.Tk):
 
                 if self.board[row][col].piece == 2:
                     piece = self.canvas.create_oval(x1, y1, x2, y2,
-                        tags="piece", width=0, fill="#E50000")
+                        tags="piece", width=0, fill="#E5E500") # Red pieces to be changed to yellow("#E5E500")
                 elif self.board[row][col].piece == 1:
                     piece = self.canvas.create_oval(x1, y1, x2, y2,
-                        tags="piece", width=0, fill="#007F00")
+                        tags="piece", width=0, fill= "#0000FF") # Green pieces to be changed to blue("#0000FF")
                 else:
                     continue
 
