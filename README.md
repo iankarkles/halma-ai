@@ -5,14 +5,12 @@ determine the best subsequent move. The program also supports player vs.
 player games.
 
 
-## Game Images
+## Usage
+To run the project you need to cd into your folder where the files are. Once you are there, you need to run on the cmd following command:
 
-<p float="left">
-    <img src="images/start.png" width="290" />
-    <img src="images/past_move_highlighting.png" width="290" />
-    <img src="images/possible_move_highlighting.png" width="290" />
-</p>
+`python halma.py`
 
+This command onto your cmd application should open the program.
 
 ## AI Project
 Topic 2: Adversarial Search Methods for Two-Player Board Games
