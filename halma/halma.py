@@ -469,8 +469,8 @@ class Halma():
 
         self.total_plies += 1
 
-        self.board_view.set_status_color("#007F00" if
-            self.current_player == Tile.P_RED else "#E50000")
+        self.board_view.set_status_color("#757575" if
+            self.current_player == Tile.P_RED else "#757575")
         self.board_view.set_status("Piece moved from `" + str(from_tile) +
             "` to `" + str(to_tile) + "`, " + ("blue's" if
             self.current_player == Tile.P_RED else "yellow's") + " turn...")
