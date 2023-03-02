@@ -20,16 +20,32 @@ class Halma():
 
         if dificulty == "easy":
             self.ply_depth = 1
+            self.ab_enabled = False
+            self.ai_player = False
         elif dificulty == "medium":
             self.ply_depth = 3
+            self.ab_enabled = True
+            self.ai_player = False
         elif dificulty == "hard":
             self.ply_depth = 5
+            self.ab_enabled = True
+            self.ai_player = False
         elif dificulty == "multi":
             c_player = None
+            self.ab_enabled = False
+            self.ply_depth = 'None'
+            self.ai_player = False
+        elif dificulty == "ai_vs_ai":
+            self.ply_depth = 1
+            self.ai_player = True
+            pass
+            ## Insert Parameters for AI vs AI
+        
         
         # TODO: Create an AI vs AI mode
         # TODO: Create a more advanced AI through different evaluation functions and successor functions
         
+        self.menu.destroy()
 
 
         # Create initial board
@@ -46,19 +62,25 @@ class Halma():
 
                 board[row][col] = element
 
+        
+
         # Save member variables
         self.b_size = b_size
+        if self.ai_player == True:
+            pass
+        else:
+            self.ai_player = False
+        self.current_player = Tile.P_GREEN
         self.t_limit = t_limit
         self.c_player = c_player
         self.board_view = Board(board)
         self.board = board
-        self.current_player = Tile.P_GREEN
         self.selected_tile = None
         self.valid_moves = []
         self.computing = False
         self.total_plies = 0
-        self.ply_depth = 3
         self.ab_enabled = True
+        self.is_game_over = False
 
         self.r_goals = [t for row in board
                         for t in row if t.tile == Tile.T_RED]
@@ -67,9 +89,14 @@ class Halma():
 
         self.board_view.set_status_color("#E50000" if
             self.current_player == Tile.P_RED else "#007F00")
+        
 
-        if self.c_player == self.current_player:
+        if self.ai_player == True:
+                    self.execute_computer_move_ai_vs_ai()
+        elif self.c_player == self.current_player:
             self.execute_computer_move()
+        
+
 
         self.board_view.add_click_handler(self.tile_clicked)
         self.board_view.draw_tiles(board=self.board)  # Refresh the board
@@ -191,6 +218,11 @@ class Halma():
                     return best_val, best_move, prunes + 1, boards
 
         return best_val, best_move, prunes, boards
+    
+    def play(self):
+        while not self.is_game_over == True:
+            self.execute_computer_move_ai_vs_ai()
+    
 
     def execute_computer_move(self):
 
@@ -247,6 +279,66 @@ class Halma():
 
         self.computing = False
         print()
+    
+    def execute_computer_move_ai_vs_ai(self):
+    # determine the current player
+        if self.current_player == Tile.P_GREEN:
+            self.c_player = Tile.P_GREEN
+        else:
+            self.c_player = Tile.P_RED
+    # Print out search information
+        current_turn = (self.total_plies // 2) + 1
+        print("Turn", current_turn, "Computation")
+        print("=================" + ("=" * len(str(current_turn))))
+        print("Executing search ...", end=" ")
+        sys.stdout.flush()
+
+        # self.board_view.set_status("Computing next move...")
+        self.computing = True
+        self.board_view.update()
+        max_time = time.time() + self.t_limit
+
+        # Execute minimax search
+        start = time.time()
+        _, move, prunes, boards = self.minimax(self.ply_depth,
+            self.c_player, max_time)
+        end = time.time()
+
+        # Print search result stats
+        print("complete")
+        print("Time to compute:", round(end - start, 4))
+        print("Total boards generated:", boards)
+        print("Total prune events:", prunes)
+
+        # Move the resulting piece
+        self.outline_tiles(None)  # Reset outlines
+        move_from = self.board[move[0][0]][move[0][1]]
+        move_to = self.board[move[1][0]][move[1][1]]
+        self.move_piece(move_from, move_to)
+
+        self.board_view.draw_tiles(board=self.board)  # Refresh the board
+
+        winner = self.find_winner()
+        if winner:
+            self.board_view.set_status("The " + ("green"
+                if winner == Tile.P_GREEN else "red") + " player has won!")
+            self.board_view.set_status_color("#212121")
+            self.current_player = None
+            self.current_player = None
+
+            print()
+            print("Final Stats")
+            print("===========")
+            print("Final winner:", "green"
+                if winner == Tile.P_GREEN else "red")
+            print("Total # of plies:", self.total_plies)
+            self.is_game_over = True
+        else:
+            # recursively call play() to continue the game
+            self.current_player = self.c_player
+            self.play()
+
+
 
     def get_next_moves(self, player=1):
 
@@ -330,6 +422,7 @@ class Halma():
         return moves
 
     def move_piece(self, from_tile, to_tile):
+    
 
         # Handle trying to move a non-existant piece and moving into a piece
         if from_tile.piece == Tile.P_NONE or to_tile.piece != Tile.P_NONE:
