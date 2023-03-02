@@ -4,8 +4,6 @@ An AI that uses an adversarial minimax search with alpha-beta purning to
 determine the best subsequent move. The program also supports player vs.
 player games.
 
-`usage: halma <b-size> <t-limit> [<h-player>]`
-
 
 ## Game Images
 
