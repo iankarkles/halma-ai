@@ -16,14 +16,25 @@ player games.
 </p>
 
 
-## Class Tournament
-
-The final project for this course was structured around creating this
-adversarial AI so that the teams in class could compete in one final tournament
-on the last day of class.
-
-Our AI worked its way through 4 games of this single-elimination tournament to
-win first place.
+## AI Project
+Topic 2: Adversarial Search Methods for Two-Player Board Games
+A board game is characterized by the type of board and tiles, the rules of movement of the pieces
+(operators/possible moves) and the finishing conditions of the game with the respective score. In this work,
+the aim is to implement a game for two players and solve different versions of this game, using the Minimax
+search method with α cuts and its variants.
+Human-human, human-computer and computer-computer game modes should be developed, where the
+computer should exhibit different skills (levels of difficulty). Computer performance should be compared
+regarding the different skills (e.g., hard, medium, easy), corresponding to different evaluation functions,
+different depth levels of Minimax, different successor generation ordering and/or variants of the Minimax
+algorithm. The work may also include a Monte Carlo Tree Algorithm and its comparison with Minimax.
+Emphasis should be placed on the analysis of the results of the computer players (wins, draws, losses, and
+other quality parameters, such as the number of plays to obtain the win/loss) and average time spent to
+obtain the solutions/plays.
+The application to be developed must have a proper user interface in text or graphic mode, to show the
+evolution of the board and interact with the user / player. You must allow the game modes indicated above, 
+allowing the selection of the game mode, type of each player, and skills of computer players. You should
+allow different skilled computer players to play with each other. You may also consider providing human
+players with movement “hints”. 
 
 
 ## Additional Notes
